@@ -158,3 +158,34 @@ resource "aws_route_table" "kien-rt-private" {
     GBL_CLASS_1 = var.tag_list.GBL_CLASS_1
   }
 }
+
+resource "aws_route_table_association" "kien-rta-pri-1" {
+  subnet_id      = aws_subnet.kien-pri-sub-1.id
+  route_table_id = aws_route_table.kien-rt-private.id
+}
+
+resource "aws_route_table_association" "kien-rta-pri-2" {
+  subnet_id      = aws_subnet.kien-pri-sub-2.id
+  route_table_id = aws_route_table.kien-rt-private.id
+}
+
+#Create RouTable DB
+resource "aws_route_table" "kien-rt-database" {
+  vpc_id = aws_vpc.kien-vpc.id
+
+  tags = {
+    Name        = "value"
+    GBL_CLASS_0 = var.tag_list.GBL_CLASS_0
+    GBL_CLASS_1 = var.tag_list.GBL_CLASS_1
+  }
+}
+
+resource "aws_route_table_association" "kien-rta-db-1" {
+  subnet_id      = aws_subnet.kien-db-sub-1.id
+  route_table_id = aws_route_table.kien-rt-database.id
+}
+
+resource "aws_route_table_association" "kien-rta-db-2" {
+  subnet_id      = aws_subnet.kien-db-sub-2.id
+  route_table_id = aws_route_table.kien-rt-database.id
+}
