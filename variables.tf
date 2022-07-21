@@ -13,6 +13,7 @@ variable "tag_list" {
     ngw_name      = string
     rt_pub_name   = string
     rt_pri_name   = string
+    rt_db_name    = string
   })
 
   default = {
@@ -29,6 +30,7 @@ variable "tag_list" {
     ngw_name      = "kien-ngw"
     rt_pub_name   = "kien-rt-public"
     rt_pri_name   = "kien-rt-private"
+    rt_db_name    = "kien-rt-database"
   }
 }
 

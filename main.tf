@@ -174,7 +174,7 @@ resource "aws_route_table" "kien-rt-database" {
   vpc_id = aws_vpc.kien-vpc.id
 
   tags = {
-    Name        = "value"
+    Name        = var.tag_list.rt_db_name
     GBL_CLASS_0 = var.tag_list.GBL_CLASS_0
     GBL_CLASS_1 = var.tag_list.GBL_CLASS_1
   }
