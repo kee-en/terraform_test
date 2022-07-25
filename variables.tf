@@ -1,59 +1,71 @@
-variable "tag_list" {
+variable "tags" {
   type = object({
-    GBL_CLASS_0   = string
-    GBL_CLASS_1   = string
-    vpc_name      = string
-    sub_pub1_name = string
-    sub_pub2_name = string
-    sub_pri1_name = string
-    sub_pri2_name = string
-    sub_db1_name  = string
-    sub_db2_name  = string
-    igw_name      = string
-    ngw_name      = string
-    rt_pub_name   = string
-    rt_pri_name   = string
-    rt_db_name    = string
+    GBL_CLASS_0 = string
+    GBL_CLASS_1 = string
+    vpc         = string
+    sub_pub_1   = string
+    sub_pub_2   = string
+    sub_pri_1   = string
+    sub_pri_2   = string
+    sub_db_1    = string
+    sub_db_2    = string
+    igw         = string
+    ngw         = string
+    rt_public   = string
+    rt_private  = string
+    rt_database = string
   })
 
   default = {
-    GBL_CLASS_0   = "SERVICE"
-    GBL_CLASS_1   = "TEST"
-    vpc_name      = "kien-vpc"
-    sub_pub1_name = "kien-pub-sub-1"
-    sub_pub2_name = "kien-pub-sub-2"
-    sub_pri1_name = "kien-pri-sub-1"
-    sub_pri2_name = "kien-pri-sub-2"
-    sub_db1_name  = "kien-db-sub-1"
-    sub_db2_name  = "kien-db-sub-2"
-    igw_name      = "kien-igw"
-    ngw_name      = "kien-ngw"
-    rt_pub_name   = "kien-rt-public"
-    rt_pri_name   = "kien-rt-private"
-    rt_db_name    = "kien-rt-database"
+    GBL_CLASS_0 = "SERVICE"
+    GBL_CLASS_1 = "TEST"
+    vpc         = "kien-vpc"
+    sub_pub_1   = "kien-pub-sub-1"
+    sub_pub_2   = "kien-pub-sub-2"
+    sub_pri_1   = "kien-pri-sub-1"
+    sub_pri_2   = "kien-pri-sub-2"
+    sub_db_1    = "kien-db-sub-1"
+    sub_db_2    = "kien-db-sub-2"
+    igw         = "kien-igw"
+    ngw         = "kien-ngw"
+    rt_public   = "kien-rt-public"
+    rt_private  = "kien-rt-private"
+    rt_database = "kien-rt-database"
   }
 }
 
-variable "cidr" {
+variable "cidr_block" {
   type = object({
-    vpc_block      = string
-    sub_pub1_block = string
-    sub_pub2_block = string
-    sub_pri1_block = string
-    sub_pri2_block = string
-    sub_db1_block  = string
-    sub_db2_block  = string
-    all_block      = string
+    vpc       = string
+    sub_db_1  = string
+    sub_db_2  = string
+    sub_pri_1 = string
+    sub_pri_2 = string
+    sub_pub_1 = string
+    sub_pub_2 = string
+    all       = string
   })
 
   default = {
-    all_block      = "0.0.0.0/0"
-    sub_db1_block  = "10.50.7.0/24"
-    sub_db2_block  = "10.50.8.0/24"
-    sub_pri1_block = "10.50.4.0/24"
-    sub_pri2_block = "10.50.5.0/24"
-    sub_pub1_block = "10.50.1.0/24"
-    sub_pub2_block = "10.50.2.0/24"
-    vpc_block      = "10.50.0.0/16"
+    all       = "0.0.0.0/0"
+    sub_db_1  = "10.50.7.0/24"
+    sub_db_2  = "10.50.8.0/24"
+    sub_pri_1 = "10.50.4.0/24"
+    sub_pri_2 = "10.50.5.0/24"
+    sub_pub_1 = "10.50.1.0/24"
+    sub_pub_2 = "10.50.2.0/24"
+    vpc       = "10.50.0.0/16"
+  }
+}
+
+variable "availability_zone" {
+  type = object({
+    ap_northeast_1a = string
+    ap_northeast_1b = string
+  })
+
+  default = {
+    ap_northeast_1a = "ap-northeast-1a"
+    ap_northeast_1b = "ap-northeast-1b"
   }
 }
