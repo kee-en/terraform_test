@@ -88,7 +88,7 @@ module "internet_gateway" {
 module "nat_gateway" {
   source = "./modules/nat_gateway"
 
-  subnet_id = module.subnets.public_subnet_1_id
+  public_subnet = module.subnets.public_subnet_1_id
   tags = {
     Name        = "kien-ngw"
     GBL_CLASS_0 = "${var.GBL_CLASS_0}"
