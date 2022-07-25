@@ -1,3 +1,11 @@
+variable "GBL_CLASS_0" {
+  type = string
+}
+
+variable "GBL_CLASS_1" {
+  type = string
+}
+
 variable "tags" {
   type = object({
     GBL_CLASS_0 = string
@@ -14,6 +22,8 @@ variable "tags" {
     rt_public   = string
     rt_private  = string
     rt_database = string
+    bastion     = string
+    bastion_ni  = string
   })
 
   default = {
@@ -31,6 +41,8 @@ variable "tags" {
     rt_public   = "kien-rt-public"
     rt_private  = "kien-rt-private"
     rt_database = "kien-rt-database"
+    bastion     = "kien-bastion"
+    bastion_ni  = "kien-bastion-ni"
   }
 }
 
@@ -67,5 +79,15 @@ variable "availability_zone" {
   default = {
     ap_northeast_1a = "ap-northeast-1a"
     ap_northeast_1b = "ap-northeast-1b"
+  }
+}
+
+variable "instance_type" {
+  type = object({
+    t2_micro = string
+  })
+
+  default = {
+    t2_micro = "t2.micro"
   }
 }
