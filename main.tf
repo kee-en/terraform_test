@@ -24,7 +24,7 @@ module "vpc" {
 
 module "subnets" {
   source = "./modules/subnets"
-  
+
   vpc_id = module.vpc.id
 
   public_subnet_1_cidr_block  = var.pub_sub_1_cidr_block
@@ -79,7 +79,18 @@ module "internet_gateway" {
   vpc_id = module.vpc.id
 
   tags = {
-    Name = "kien-igw"
+    Name        = "kien-igw"
+    GBL_CLASS_0 = "${var.GBL_CLASS_0}"
+    GBL_CLASS_1 = "${var.GBL_CLASS_1}"
+  }
+}
+
+module "nat_gateway" {
+  source = "./modules/nat_gateway"
+
+  subnet_id = module.subnets.public_subnet_1_id
+  tags = {
+    Name        = "kien-ngw"
     GBL_CLASS_0 = "${var.GBL_CLASS_0}"
     GBL_CLASS_1 = "${var.GBL_CLASS_1}"
   }
