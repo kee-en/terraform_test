@@ -95,3 +95,47 @@ module "nat_gateway" {
     GBL_CLASS_1 = "${var.GBL_CLASS_1}"
   }
 }
+
+module "route_tables" {
+  source = "./modules/route_tables"
+
+  vpc_id = module.vpc.id
+  igw_id = module.internet_gateway.id
+  ngw_id = module.nat_gateway.id
+
+  public_rt_cidr_block  = var.all_sub_cidr_block
+  private_rt_cidr_block = var.all_sub_cidr_block
+
+  public_rt_tags = {
+    Name        = "kien-rt-public"
+    GBL_CLASS_0 = "${var.GBL_CLASS_0}"
+    GBL_CLASS_1 = "${var.GBL_CLASS_1}"
+  }
+
+  private_rt_tags = {
+    Name        = "kien-rt-private"
+    GBL_CLASS_0 = "${var.GBL_CLASS_0}"
+    GBL_CLASS_1 = "${var.GBL_CLASS_1}"
+  }
+
+  db_rt_tags = {
+    Name        = "kien-rt-db"
+    GBL_CLASS_0 = "${var.GBL_CLASS_0}"
+    GBL_CLASS_1 = "${var.GBL_CLASS_1}"
+  }
+}
+
+module "route_table_association" {
+  source = "./modules/route_table_association"
+
+  public_subnet_1 = module.subnets.public_subnet_1_id
+  public_subnet_2 = module.subnets.public_subnet_2_id
+  private_subnet_1 = module.subnets.private_subnet_1_id
+  private_subnet_2 = module.subnets.private_subnet_2_id
+  db_subnet_1      = module.subnets.db_subnet_1_id
+  db_subnet_2      = module.subnets.db_subnet_2_id
+
+  public_rt = module.route_tables.public_rt_id
+  private_rt = module.route_tables.private_rt_id
+  db_rt      = module.route_tables.db_rt_id
+}

@@ -63,3 +63,5 @@ variable "db_subnet_1_cidr_block" {
 variable "db_subnet_2_cidr_block" {
   type = string
 }
+
+
