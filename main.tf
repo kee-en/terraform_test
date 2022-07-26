@@ -22,6 +22,16 @@ module "vpc" {
   }
 }
 
+module "eip" {
+  source = "./modules/eip"
+
+  eip_ngw_tags = {
+    GBL_CLASS_0 = "${var.GBL_CLASS_0}"
+    GBL_CLASS_1 = "${var.GBL_CLASS_1}"
+    Name        = "kien-eip-ngw"
+  }
+}
+
 module "subnets" {
   source = "./modules/subnets"
 
@@ -89,6 +99,7 @@ module "nat_gateway" {
   source = "./modules/nat_gateway"
 
   public_subnet = module.subnets.public_subnet_1_id
+  eip = module.eip.eip_ngw
   tags = {
     Name        = "kien-ngw"
     GBL_CLASS_0 = "${var.GBL_CLASS_0}"
@@ -128,14 +139,14 @@ module "route_tables" {
 module "route_table_association" {
   source = "./modules/route_table_association"
 
-  public_subnet_1 = module.subnets.public_subnet_1_id
-  public_subnet_2 = module.subnets.public_subnet_2_id
+  public_subnet_1  = module.subnets.public_subnet_1_id
+  public_subnet_2  = module.subnets.public_subnet_2_id
   private_subnet_1 = module.subnets.private_subnet_1_id
   private_subnet_2 = module.subnets.private_subnet_2_id
   db_subnet_1      = module.subnets.db_subnet_1_id
   db_subnet_2      = module.subnets.db_subnet_2_id
 
-  public_rt = module.route_tables.public_rt_id
+  public_rt  = module.route_tables.public_rt_id
   private_rt = module.route_tables.private_rt_id
   db_rt      = module.route_tables.db_rt_id
 }
