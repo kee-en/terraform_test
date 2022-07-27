@@ -11,6 +11,27 @@ provider "aws" {
   region = "ap-northeast-1"
 }
 
+data "aws_ami" "ubuntu" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  filter {
+    name   = "architecture"
+    values = ["x86_64"]
+  }
+
+  owners = ["099720109477"]
+}
+
 module "vpc" {
   source = "./modules/vpc"
 
@@ -99,7 +120,7 @@ module "nat_gateway" {
   source = "./modules/nat_gateway"
 
   public_subnet = module.subnets.public_subnet_1_id
-  eip = module.eip.eip_ngw
+  eip           = module.eip.eip_ngw
   tags = {
     Name        = "kien-ngw"
     GBL_CLASS_0 = "${var.GBL_CLASS_0}"
