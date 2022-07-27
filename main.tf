@@ -11,27 +11,6 @@ provider "aws" {
   region = "ap-northeast-1"
 }
 
-data "aws_ami" "ubuntu" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  filter {
-    name   = "architecture"
-    values = ["x86_64"]
-  }
-
-  owners = ["099720109477"]
-}
-
 module "vpc" {
   source = "./modules/vpc"
 
@@ -170,4 +149,36 @@ module "route_table_association" {
   public_rt  = module.route_tables.public_rt_id
   private_rt = module.route_tables.private_rt_id
   db_rt      = module.route_tables.db_rt_id
+}
+
+module "network_interface" {
+  source = "./modules/network_interface"
+
+  public_subnet = module.subnets.public_subnet_1_id
+
+  tags = {
+    Name        = "kien-bastion-ni"
+    GBL_CLASS_0 = "${var.GBL_CLASS_0}"
+    GBL_CLASS_1 = "${var.GBL_CLASS_1}"
+  }
+}
+
+module "ami" {
+  source = "./modules/ami"
+}
+
+module "security_groups" {
+  sources = "./modules/security_groups"
+}
+
+module "instance" {
+  source = "./modules/instance"
+
+  ami_data = module.ami.ubuntu_ami_id
+  instance_type = var.instance_type
+  bastion_tags = {
+    Name        = "kien-bastion"
+    GBL_CLASS_0 = "${var.GBL_CLASS_0}"
+    GBL_CLASS_1 = "${var.GBL_CLASS_1}"
+  }
 }
