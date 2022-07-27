@@ -187,6 +187,8 @@ module "instance" {
   ami_data                  = module.ami.ubuntu_ami_id
   instance_type             = var.instance_type
   network_interface_bastion = module.network_interface.bastion-ni-id
+  bastion_sg                = [module.security_groups.bastion_sg_id]
+  public_subnet             = module.subnets.public_subnet_1_id
   bastion_tags = {
     Name        = "kien-bastion"
     GBL_CLASS_0 = "${var.GBL_CLASS_0}"
