@@ -168,14 +168,25 @@ module "ami" {
 }
 
 module "security_groups" {
-  sources = "./modules/security_groups"
+  source = "./modules/security_groups"
+
+  vpc_id          = module.vpc.id
+  description_ssh = var.description_ssh
+  ssh_port        = var.port_ssh
+  protocol        = var.protocol_type
+  personal_cidr   = var.personal_cidr_block
+  zscaler1_cidr   = var.zscaler1_cidr_block
+  zscaler2_cidr   = var.zscaler2_cidr_block
+  zscaler3_cidr   = var.zscaler3_cidr_block
+  zscaler4_cidr   = var.zscaler4_cidr_block
 }
 
 module "instance" {
   source = "./modules/instance"
 
-  ami_data = module.ami.ubuntu_ami_id
-  instance_type = var.instance_type
+  ami_data                  = module.ami.ubuntu_ami_id
+  instance_type             = var.instance_type
+  network_interface_bastion = module.network_interface.bastion-ni-id
   bastion_tags = {
     Name        = "kien-bastion"
     GBL_CLASS_0 = "${var.GBL_CLASS_0}"

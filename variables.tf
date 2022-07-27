@@ -37,6 +37,26 @@ variable "all_sub_cidr_block" {
   type = string
 }
 
+variable "personal_cidr_block" {
+  type = string
+}
+
+variable "zscaler1_cidr_block" {
+  type = string
+}
+
+variable "zscaler2_cidr_block" {
+  type = string
+}
+
+variable "zscaler3_cidr_block" {
+  type = string
+}
+  
+variable "zscaler4_cidr_block" {
+  type = string
+}
+
 variable "availability_zone_1" {
   type = string
 }
@@ -46,5 +66,17 @@ variable "availability_zone_2" {
 }
 
 variable "instance_type" {
+  type = string
+}
+
+variable "protocol_type" {
+  type = string
+}
+
+variable "description_ssh" {
+  type = string
+}
+  
+variable "port_ssh" {
   type = string
 }
