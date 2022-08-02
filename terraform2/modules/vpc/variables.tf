@@ -14,6 +14,10 @@ variable "GBL_CLASS_1" {
   type = string
 }
 
+variable "all_cidr_block" {
+  type = string
+}
+
 variable "pubsub_a_cidr_block" {
   type = string
 }

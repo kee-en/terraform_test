@@ -38,6 +38,10 @@ variable "zscaler4_cidr_block" {
   type = string
 }
 
+variable "all_cidr_block" {
+  type = string
+}
+
 variable "vpc_cidr_block" {
   type = string
 }
