@@ -87,3 +87,17 @@ resource "aws_instance" "kien-bastion" {
     GBL_CLASS_1 = var.GBL_CLASS_1
   }
 }
+
+module "alb" {
+  source = "./modules/alb"
+
+  name       = var.name
+  lb_sg_id   = module.security.lb_sg_id
+  vpc_id     = module.vpc.vpc_id
+  pubsub1_id = module.vpc.pubsub_a_id
+  pubsub2_id = module.vpc.pubsub_c_id
+  http_port  = var.http_port
+
+  GBL_CLASS_0 = var.GBL_CLASS_0
+  GBL_CLASS_1 = var.GBL_CLASS_1
+}
