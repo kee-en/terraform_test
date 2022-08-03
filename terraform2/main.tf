@@ -101,3 +101,19 @@ module "alb" {
   GBL_CLASS_0 = var.GBL_CLASS_0
   GBL_CLASS_1 = var.GBL_CLASS_1
 }
+
+module "asg" {
+  source = "./modules/asg"
+
+  name                 = var.name
+  iam_instance_profile = module.security.iam_role_id
+  instance_sg_id       = module.security.instance_sg_id
+  key_pair_id          = module.security.key_pair_id
+  prisub1_id           = module.vpc.prisub_a_id
+  prisub2_id           = module.vpc.prisub_c_id
+  lb_target_group_arn  = module.alb.target_group_arn
+  instance_type        = var.instance_type
+
+  GBL_CLASS_0 = var.GBL_CLASS_0
+  GBL_CLASS_1 = var.GBL_CLASS_1
+}
