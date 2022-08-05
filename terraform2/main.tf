@@ -106,7 +106,7 @@ module "asg" {
   source = "./modules/asg"
 
   name                 = var.name
-  iam_instance_profile = module.security.iam_role_id
+  iam_instance_profile = module.security.iam_instance_profile_id
   instance_sg_id       = module.security.instance_sg_id
   key_pair_id          = module.security.key_pair_id
   prisub1_id           = module.vpc.prisub_a_id

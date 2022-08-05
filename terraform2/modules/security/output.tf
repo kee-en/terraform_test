@@ -17,3 +17,7 @@ output "key_pair_id" {
 output "iam_role_id" {
   value = aws_iam_role.kien-iam-role.id
 }
+
+output "iam_instance_profile_id" {
+  value = aws_iam_instance_profile.kien-iam-instance-profile.id
+}
